@@ -171,7 +171,7 @@ function wkhtmltopdf(input, options, callback) {
   });
 
   if (options.debugStdOut && !output) {
-    throw new Error('debugStdOut may not be used when wkhtmltopdf\'s output is stdout');
+      stream.emit('error', new Error('debugStdOut may not be used when wkhtmltopdf\'s output is stdout'));
   }
 
   if (options.debugStdOut && output) {
