@@ -125,9 +125,9 @@ function wkhtmltopdf(input, options, callback) {
   function handleError(err) {
     var errObj = null;
     if (Array.isArray(err)) {
-      errObj = new Error(err.join('\n'));
+      errObj = err.join('\n');
     } else if (err) {
-      errObj =  new Error(err);
+      errObj =  err;
     }
     if (callback && errObj) {
       callback(errObj);
