@@ -160,7 +160,7 @@ function wkhtmltopdf(input, options, callback) {
   }
 
   child.once('error', function(err) {
-    throw new Error(err); // critical error
+      stream.emit('error', err); // critical error
   });
 
   child.stderr.on('data', function(data) {
