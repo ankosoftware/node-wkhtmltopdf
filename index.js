@@ -146,8 +146,7 @@ function wkhtmltopdf(input, options, callback) {
     } else if (err) {
       errObj =  new Error(err);
     }
-    child.removeAllListeners('exit');
-    child.kill();
+
     // call the callback if there is one
 
     if (callback) {
