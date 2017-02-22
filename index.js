@@ -125,36 +125,14 @@ function wkhtmltopdf(input, options, callback) {
   function handleError(err) {
     var errObj = null;
     if (Array.isArray(err)) {
-      // check ignore warnings array before killing child
-      if (options.ignore && options.ignore instanceof Array) {
-        var ignoreError = false;
-        options.ignore.forEach(function(opt) {
-          err.forEach(function(error) {
-            if (typeof opt === 'string' && opt === error) {
-              ignoreError = true;
-            }
-            if (opt instanceof RegExp && error.match(opt)) {
-              ignoreError = true;
-            }
-          });
-        });
-        if (ignoreError) {
-          return true;
-        }
-      }
       errObj = new Error(err.join('\n'));
     } else if (err) {
       errObj =  new Error(err);
     }
-
-    // call the callback if there is one
-
-    if (callback) {
+    if (callback && errObj) {
       callback(errObj);
     }
-
-    // if not, or there are listeners for errors, emit the error event
-    if (!callback || stream.listeners('error').length > 0) {
+    if (errObj && (!callback || stream.listeners('error').length > 0)) {
       stream.emit('error', errObj);
     }
   }
