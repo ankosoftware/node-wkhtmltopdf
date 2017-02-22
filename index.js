@@ -129,12 +129,7 @@ function wkhtmltopdf(input, options, callback) {
     } else if (err) {
       errObj =  err;
     }
-    if (callback && errObj) {
-      callback(errObj);
-    }
-    if (errObj && (!callback || stream.listeners('error').length > 0)) {
-      stream.emit('error', errObj);
-    }
+    console.error(errObj);
   }
 
   child.once('error', function(err) {
